@@ -5,15 +5,15 @@ import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory();
 
 const initial = {
-    blog: {}
+
 };
 
 export function appReducer(state = initial, action) {
     switch (action.type) {
-        case 'BLOG_LOADED':
+        case '':
             return {
                 ...state,
-                blog: action.payload,
+
             }
 
     }

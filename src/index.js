@@ -16,9 +16,6 @@ ReactDOM.render(
               <Route path='/' exact>
                   <App />
               </Route>
-              <Route path='/blog' exact>
-                  <Blog />
-              </Route>
               <Route path='*'>
                   <NotFound />
               </Route>
