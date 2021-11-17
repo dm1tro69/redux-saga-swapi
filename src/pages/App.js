@@ -1,16 +1,12 @@
-import {useDispatch, useSelector} from 'react-redux';
+
+import PeopleTable from "../components/PeopleTable";
 
 function App() {
-  const store = useSelector(store => store);
-  const dispatch = useDispatch();
-
-  console.log(store);
 
   return (
-    <div>
-      redux-saga
-
-    </div>
+    <>
+      <PeopleTable/>
+    </>
   );
 }
 
