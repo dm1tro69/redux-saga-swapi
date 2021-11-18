@@ -2,6 +2,8 @@ import {takeEvery, call, apply, put, take, select, fork} from 'redux-saga/effect
 import {LOAD_USERS, LOAD_USERS_SUCCESS} from "../../reducers/people/actions";
 import {LOCATION_CHANGE} from "connected-react-router";
 import {selectPeople} from "../../reducers/people/selectors";
+import {matchPath} from "react-router";
+import {getRouteConfig, MAIN_ROUTE, PEOPLE_DETAILS} from "../../../routes";
 
 export function* loadPeopleDetails(){
 
@@ -19,11 +21,11 @@ export function* loadPeopleList({payload}) {
 
 }
 
-export function* loadUsersOnRouteEnter() {
+export function* routeChangeSaga() {
     while (true){
         const action = yield take(LOCATION_CHANGE)
 
-        if (action.payload.location.pathname === '/'){
+        if (matchPath(action.payload.location.pathname, getRouteConfig(MAIN_ROUTE))){
             const state = yield select(selectPeople)
             const {page, search} = state
 
@@ -32,12 +34,16 @@ export function* loadUsersOnRouteEnter() {
                 payload: {page, search}
             })
         }
+        const detailsPage = matchPath(action.payload.location.pathname, getRouteConfig(PEOPLE_DETAILS))
+        if (detailsPage){
+            console.log('det', detailsPage)
+        }
 
 
     }
 }
 
 export default function* peopleSaga() {
-    yield fork(loadUsersOnRouteEnter)
+    yield fork(routeChangeSaga)
     yield takeEvery(LOAD_USERS, loadPeopleList)
 }
